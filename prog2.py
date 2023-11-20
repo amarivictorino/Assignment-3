@@ -1,41 +1,34 @@
-# User-defined function to calculate total amount
-def calculate_total_amount(apple_quantity, orange_quantity, apple_price, orange_price):
-    # Calculate total amount
-    total_amount = (apple_quantity * apple_price) + (orange_quantity * orange_price)
+def calculate_max_apples(money, apple_price):
+    # Calculate the maximum number of apples
+    max_apples = money // apple_price
+    
+    # Calculate the remaining money after buying apples
+    remaining_money = money % apple_price
+    
+    return max_apples, remaining_money
 
-    return total_amount
+def display_results(max_apples, remaining_money):
+    # Display the results
+    print("\nMaximum number of apples you can buy: ", max_apples)
+    print("Remaining money: ${:.2f}".format(remaining_money))
 
-# User-defined function to display receipt
-def display_receipt(apple_quantity, orange_quantity, apple_price, orange_price, total_amount):
-    print("\n********** Receipt **********")
-    print(f"Quantity of apples: {apple_quantity}")
-    print(f"Unit price of apples: {apple_price} pesos")
-    print(f"Subtotal for apples: {apple_quantity * apple_price} pesos")
+def main():
+    # Get user input for the amount of money and the price of an apple
+    money = float(input("Enter the amount of money you have: $"))
+    apple_price = float(input("Enter the price of an apple: $"))
 
-    print(f"\nQuantity of oranges: {orange_quantity}")
-    print(f"Unit price of oranges: {orange_price} pesos")
-    print(f"Subtotal for oranges: {orange_quantity * orange_price} pesos")
+    # Call the user-defined function to calculate the maximum number of apples and remaining money
+    max_apples, remaining_money = calculate_max_apples(money, apple_price)
 
-    print("\n*****************************")
-    print(f"Total amount to be paid: {total_amount} pesos")
-    print("*****************************")
+    # Display the results
+    display_results(max_apples, remaining_money)
 
-# Main program
+    # Additional feature: Calculate and display the average cost per apple
+    if max_apples > 0:
+        average_cost_per_apple = money / max_apples
+        print("Average cost per apple: ${:.2f}".format(average_cost_per_apple))
+    else:
+        print("You cannot buy any apples with the given amount.")
+
 if __name__ == "__main__":
-    # Prices of apples and oranges in pesos
-    apple_price = 20
-    orange_price = 25
-
-    # Get user input for the number of apples and oranges
-    apple_quantity = int(input("Enter the quantity of apples you want to buy: "))
-    orange_quantity = int(input("Enter the quantity of oranges you want to buy: "))
-
-    # Calculate the total amount using the user-defined function
-    total_amount = calculate_total_amount(apple_quantity, orange_quantity, apple_price, orange_price)
-
-    # Display the receipt using the user-defined function
-    display_receipt(apple_quantity, orange_quantity, apple_price, orange_price, total_amount)
-
-    # Keep the console window open
-    input("Press Enter to exit...")
-
+    main()
